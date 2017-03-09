@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+//       console.log(session)
+    }
+        
+    function getNoti() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function (event){ 
+            if (xhr.readyState == 4 && xhr.status == 200){
+                notis = JSON.parse(xhr.responseText)
+                notiList = document.getElementById('notiList');
+                notiList.innerHTML = "";
+//                for(var i=0; i<posts.length; i++) {
+                for(var i=0; i<3; i++) {
+                    notiList.innerHTML += "<a href='" + notis[i]['url']  + "'><div class='notis'>" + notis[i]['title'] + "</div></a>"
+                }
+            }
+        }
+        xhr.open("GET", "/api/announce", false); 
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); xhr.send();
+        
+        document.getElementsByClassName('notis')[0].style.border = '0px';
+    }    
+    </script>
+    <meta charset="utf-8">
+    <title>홈</title>
+    <link href="../css/srHome.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+    <link href="../css/weather-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<!--    <p><%= session %></p>-->
+        <script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="homeContent">
+            <div id="noti">
+            <div id="notiTitle">
+                <p>공지사항</p>
+                <div id="notiMore">더보기</div>
+            </div>
+            <div id="notiList">
+                <div>SUNRIN Networking Day 2016 (부제 : SRN 2016, Start & We) 개최</div>
+                <div>학교내 영상정보처리기기 운영 안내</div>
+                <div>2016 디지털콘텐츠경진대회 알림</div>
+            </div>
+        </div>
+            <div id="calendar">
+            <div id="today">
+                <div id="todayTitle">오늘 일정</div>
+                <div id="todayTodo">오늘 일정 없음</div>
+            </div>
+            <div id="tomorrow">
+                <div id="tomorrowTitle">내일 일정</div>
+                <div id="tomorrowTodo">내일 일정 없음</div>
+            </div>
+            <div id="task">
+                <div id="taskTitle">과제물 제출</div>
+                <div id="taskTodo">과제물 없음</div>
+            </div>
+        </div>
+            <div id="serviceItem">
+            <div id="smallItem">
+                <a href="/haksa"><div id="schoolInfo">학사정보</div></a>
+                <a href="/suhang"><div id="recordInfo">성적 관리</div></a>
+                <a href="/service"><div id="service">서비스</div></a>
+                <a href="/srHomeCommu"><div id="community">커뮤니티</div></a>
+                <a href="/apply"><div id="apply">신청</div></a>
+                <a href="/srNow"><div id="srNow"></div></a>
+            </div>
+            <div id="bigItem">
+                <div></div>
+            </div>
+        </div>
+        </div>
+        <div id="nowCards">
+            <div id="lunch" class="nowCard" onclick="location.href='/meal'">
+                <div class="cardHeader">
+                    <div class="cardTitle">점심</div>
+                    <div class="cardSub" id="day">2016년 10월 26일 수요일</div>
+                </div>
+                <div id="lunchData"></div>
+            </div>
+            <div class="nowCard" id="time">
+                <div class="cardHeader">
+                    <div class="cardTitle">시간표</div>
+                    <div class="cardSub" id="timeTime"></div>
+                </div>
+                <div id="timeData"></div>
+            </div>
+        </div>
+        <script>
+            function getTime() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function (event){ if (xhr.readyState == 4 && xhr.status == 200){
+            result = JSON.parse(xhr.responseText);
+            console.log(result);
+            }}
+            xhr.open("GET", "/api/schedule/1/4/"+day%7, false); 
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+            xhr.send();
+
+            document.getElementById('timeTime').innerHTML = date.getHours() + "시 " + date.getMinutes() + "분";
+            
+            for(var j=0; j<result['arr'].length; j++) {
+                 document.getElementById('timeData').innerHTML += "<p>"+result['arr'][j]+"</p>";
+            }
+        }
+            
+            
+            getNoti(); 
+            
+            
+            date = new Date();
+            year = date.getFullYear();
+//            month = date.getMonth() + 1;
+            day = date.getDate();
+//            year = date.toISOString().split('-')[0];
+            month = date.toISOString().split('-')[1];
+//            day = date.toISOString().split('-')[2];
+            week = new Array('일','월','화','수','목','금','토');
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function (event){ if (xhr.readyState == 4 && xhr.status == 200){
+            result = JSON.parse(xhr.responseText);
+            }}
+            xhr.open("GET", "/api/parse/md/"+ year + "/" + month, false); xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); xhr.send();
+
+            document.getElementById('day').innerHTML = year + "년 " + month + "월 " + day + "일 " + week[(day+1)%7] + "요일"; 
+
+//            lunchData = "";
+//            
+//            for(var i=0; i<result[day-1].toString().replace('[중식],', '').split(",[석식],")[0].split(',').length; i++) {
+//                lunchData += "<p>" + <result[day-1].toString().replace('[중식],', '').split(",[석식],")[0].split(',')[i] + "</p>"; //중식
+//            }
+            
+            mealData = "";
+            
+            for(var i=0; i<result[day-1].length; i++) {
+                if(result[day-1][i] != "[중식]") {
+//                    console.log("!");
+                    if (result[day-1][i] == "[석식]") { break;}
+                    mealData += "<p>" + result[day-1][i] + "</p>";
+                }
+            }
+            
+            if(result[day-1][i] == undefined) {
+                console.log("?");
+                mealData = "<p>오늘 급식이 없습니다</p>";
+            }
+            
+            document.getElementById('lunchData').innerHTML += mealData;
+            
+            getTime();
+            
+            if(userClass == "교사") {
+                document.getElementsByTagName('a')[7].href = "/suhangT";
+            }
+        </script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+       console.log(session)
+    }
+    </script>
+    <meta charset="utf-8">
+    <title>서비스</title>
+    <link href="../css/service.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+</head>
+<body>
+    <script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="view">
+            <div id="boardTitle">
+                <div class="boardName">서비스 바로가기</div>
+<!--                <div id="comment">댓글</div>-->
+            </div>
+            <div id="serviceList" >
+                <a class="serviceItem" href="http://disk.sunrint.hs.kr/">
+                    <img src="../img/ic_srhome_service_cloud.png">
+                    <p>선린 웹하드</p>
+                </a>
+                <a class="serviceItem" href="http://www.ted.com/">
+                    <img src="../img/ic_srhome_service_elearning.png">
+                    <p>e-러닝</p>
+                </a>
+                <a class="serviceItem" href="http://e5.onthehub.com/WebStore/ProductsByMajorVersionList.aspx?ws=7ec872a3-2bd5-e211-9d05-f04da23e67f4&vsro=8">
+                    <img src="../img/ic_srhome_service_ms.png">
+                    <p>마이크로소프트<br>이메진</p>
+                </a>
+                <a class="serviceItem" href="https://e5.onthehub.com/WebStore/Welcome.aspx?ws=d188303c-41d7-e511-9416-b8ca3a5db7a1">
+                    <img src="../img/ic_srhome_service_vmware.png">
+                    <p>VMware</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</body>
+
+</html>

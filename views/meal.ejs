@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+       console.log(session)
+    }
+    </script>
+    <meta charset="utf-8">
+    <title>급식정보</title>
+    <link href="../css/meal.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+</head>
+<body>
+<script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="view">
+            <div id="boardTitle">
+                <a class="boardName" href="/haksa">학사일정</a>
+                <a class="boardName" href="/meal">급식</a>
+<!--                <div id="comment">댓글</div>-->
+            </div>
+        </div>
+        <div id="calendar"><div id="month"></div></div>
+        <div id="meal">
+            <div id="mealLunch"></div>
+            <div id="mealDinner"></div>
+        </div>
+    </div>
+    <script>    
+        function choiceDay(month,day) {
+            tdTag = document.getElementsByTagName('td');
+            for(var i=0;i<tdTag.length;i++) {
+                if(tdTag[i].innerHTML == day) {
+                    tdTag[i].style.border = "0px";
+                    tdTag[i].style.background = "red";
+                    tdTag[i].style.color = "#fff";
+                } else if(tdTag[i].className != "nbsp") {
+                    tdTag[i].style.border = "1px solid #bdbdbd";
+                    tdTag[i].style.background = "";
+                    tdTag[i].style.color = "#757575";
+                }
+            }
+            
+            getMeal(day);
+        }
+        
+//        getMeal(new Date().getMonth()+1,new Date().getDate())
+        
+        function getMeal(d) {
+            var date = new Date(); // 날짜 객체 생성
+            var y = date.getFullYear(); // 현재 연도
+            var m = date.toISOString().split('-')[1];
+//            var d = date.getDate(); // 현재 일
+            
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function (event){ if (xhr.readyState == 4 && xhr.status == 200){
+                    mealData = JSON.parse(xhr.responseText);
+                    
+                    console.log(d);
+                    console.log(mealData[d-1] != undefined);
+                    console.log(mealData[d-1]);
+                    console.log(mealData[d-1].length);
+                
+                    if(mealData[d-1].length != 0) {
+                        lunchArry = mealData[d-1].toString().replace('[중식],','').split(',[석식],')[0].split(',');
+                        dinnerArry = mealData[d-1].toString().replace('[중식],','').split(',[석식],')[1].split(',');
+                    } else {
+                        document.getElementById('mealLunch').innerHTML = "";
+                        document.getElementById('mealDinner').innerHTML = "";
+                        return 0;
+                    }
+                
+                    lunchData="<div>중식</div>";
+                    dinnerData="<div>석식</div>";
+                    for(var i=0;i<lunchArry.length;i++) {
+                        lunchData += "<p>"+lunchArry[i]+"</p>";
+                    }
+                    for(var i=0;i<dinnerArry.length;i++) {
+                        dinnerData += "<p>"+dinnerArry[i]+"</p>";
+                    }
+                    
+                    document.getElementById('mealLunch').innerHTML = lunchData;
+                    document.getElementById('mealDinner').innerHTML = dinnerData;
+                }
+            }
+            xhr.open("GET", "/api/parse/md/"+ y + "/" + m, false); 
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+            xhr.send();
+        }
+        
+//        getMeal();
+        
+        
+        function calendar() {
+            /* 현재 날짜와 현재 달에 1일의 날짜 객체를 생성합니다. */
+            var date = new Date(); // 날짜 객체 생성
+            var y = date.getFullYear(); // 현재 연도
+            var m = date.getMonth(); // 현재 월
+            var d = date.getDate(); // 현재 일
+
+                // 현재 년(y)월(m)의 1일(1)의 요일을 구합니다.
+            var theDate = new Date(y,m,1);
+                // 그 날의 요일은?
+            var theDay = theDate.getDay();
+
+            /* 현재 월의 마지막 일을 구합니다. */
+                // 1월부터 12월까지의 마지막 일을 배열로 만듭니다.
+            var last = [31,28,31,30,31,30,31,31,30,31,30,31];
+                // 4년마다 있는 윤년을 계산합니다.(100년||400년 주기는 제외)
+            if (y%4 && y%100!=0 || y%400===0) {
+                lastDate = last[1] = 29;
+            }
+                // 현재 월의 마지막 일이 며칠인지 구합니다.
+            var lastDate = last[m];
+
+
+            /* 현재 월의 달력에 필요한 행의 개수를 구합니다. */
+                // theDay(빈 칸의 수), lastDate(월의 전체 일수)
+            var row = Math.ceil((theDay+lastDate)/7);
+
+
+            /* 달력 연도/월을 표기하고 달력이 들어갈 테이블을 작성합니다. */
+//            document.write("<h1>" + y + "." + (m+1) + "</h1>");
+                //문자 결합 연산자를 사용해 요일이 나오는 행을 생성합니다.
+            var calendar = "<table class='calendar_table'>";
+//            calendar += "<tr>";
+//            calendar += "<th>일</th>";
+//            calendar += "<th>월</th>";
+//            calendar += "<th>화</th>";
+//            calendar += "<th>수</th>";
+//            calendar += "<th>목</th>";
+//            calendar += "<th>금</th>";
+//            calendar += "<th>토</th>";
+//            calendar += "</tr>";
+
+                // 달력에 표기되는 일의 초기값!
+            var dNum = 1;
+            for (var i=1; i<=row; i++) { // 행 만들기
+                calendar += "<tr>";
+                for (var k=1; k<=7; k++) { // 열 만들기
+                    // 월1일 이전 + 월마지막일 이후 = 빈 칸으로!
+                    if(i===1 && k<=theDay || dNum>lastDate) {
+                        calendar += "<td class='nbsp' style='border:0px;'> &nbsp; </td>";
+                    } else {
+                        calendar += "<td onclick='choiceDay("+m+","+dNum+")'>" + dNum + "</td>";
+                        dNum++;
+                    }
+                }
+                calendar += "</tr>";
+            }
+                // 문서 출력!
+            document.getElementById('calendar').innerHTML = "<div>"+(m+1)+"월"+"</div>";
+            document.getElementById('calendar').innerHTML += calendar;
+        }
+        
+        calendar();
+        choiceDay(new Date().getMonth(),new Date().getDate());
+    </script>
+</body>
+
+</html>

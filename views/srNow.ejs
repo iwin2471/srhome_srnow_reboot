@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+//       console.log(session)
+    }
+    </script>
+    <meta charset="utf-8">
+    <title>srNow</title>
+    <link href="../css/srNow.css" rel="stylesheet">
+</head>
+<body>
+    <div id="gbBar">
+        <a id="gbHome" href="/srHome">srHome</a>
+        <a id="gbLog" href="http://iori.kr/logout">로그아웃</a>
+<!--        로그아웃 로그인-->
+    </div>
+    <div id="content">
+        <div id="nowTitle">
+            <div id="logo"></div>
+            <div id="profile">
+                <div id="userInfo">
+                    <div id="userName"></div>
+                    <div id="userClass"></div>
+                </div>
+<!--                <div id="profileImage"></div>-->
+                <div id="profileHome" onclick="location.replace('/srHome')"></div>
+            </div>
+        </div>
+        <input id="searchBar" type="search" placeholder="Google에서 검색" onkeydown="javascript:if(event.keyCode==13){document.getElementById('gsc-i-id1').value = document.getElementById('searchBar').value;document.getElementsByClassName('gsc-search-button')[1].click();}">
+        <p id="nowTip">지금 무슨 일이 일어나고 있을까요? 아래로 스크롤 해보세요</p>
+        <div id="nowCards">
+            <div id="lunch" class="nowCard" onclick="location.href='/meal'">
+                <div class="cardHeader">
+                    <div class="cardTitle">점심</div>
+                    <div class="cardSub" id="day">2016년 10월 26일 수요일</div>
+                </div>
+                <div id="lunchData"></div>
+            </div>
+            <div id="time" class="nowCard">
+                <div class="cardHeader">
+                    <div class="cardTitle">시간표</div>
+                    <div class="cardSub" id="timeTime">2016년 10월 26일 수요일</div>
+                </div>
+                <div id="timeData"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+      (function() {
+        var cx = '014158491309223173170:a93mzegrlnw';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+      })();
+</script>
+<gcse:search></gcse:search>
+<script>
+        if(session == "") {
+                document.getElementById('userInfo').style.opacity = "0";
+//                document.getElementById('profileImage').style.opacity = "0";
+
+                document.getElementById('gbLog').innerHTML = "로그인";
+                document.getElementById('gbLog').href = "http://iori.kr/login";
+
+        }      
+    
+        date = new Date();
+            year = date.getFullYear();
+//            month = date.getMonth() + 1;
+            day = date.getDate();
+//            year = date.toISOString().split('-')[0];
+            month = date.toISOString().split('-')[1];
+//            day = date.toISOString().split('-')[2];
+            week = new Array('일','월','화','수','목','금','토');
+    
+        function getMeal() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function (event){ if (xhr.readyState == 4 && xhr.status == 200){
+            result = JSON.parse(xhr.responseText);
+            console.log(result);
+            }}
+            xhr.open("GET", "/api/parse/md/"+ year + "/" + month, false); 
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+            xhr.send();
+
+            document.getElementById('day').innerHTML = year + "년 " + month + "월 " + day + "일 " + week[(day+1)%7] + "요일"; 
+
+            mealData = "";
+            for(var i=0; i<result[day-1].length; i++) {
+                if (result[day-1][i] != "[중식]") {
+                    if (result[day-1][i] == "[석식]") { break;}
+                    mealData += "<p>" + result[day-1][i] + "</p>";
+                }
+            }
+            
+            if(result[day-1][i] == undefined) {
+                console.log("?");
+                mealData = "<p>오늘 급식이 없습니다</p>";
+            }
+            
+             document.getElementById('lunchData').innerHTML += mealData;
+        }
+    
+        function getTime() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function (event){ if (xhr.readyState == 4 && xhr.status == 200){
+            if(JSON.parse(xhr.responseText) != undefined) {
+                result = JSON.parse(xhr.responseText);
+            }
+            console.log(result);
+            }}
+            xhr.open("GET", "/api/schedule/1/4/"+day%7, false); 
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+            xhr.send();
+
+            document.getElementById('timeTime').innerHTML = date.getHours() + "시 " + date.getMinutes() + "분";
+            
+            if(result['arr'] != undefined) {
+                for(var j=0; j<result['arr'].length; j++) {
+                     document.getElementById('timeData').innerHTML += "<p>"+result['arr'][j]+"</p>";
+                }
+            }
+        }
+    
+        getMeal();
+        getTime();
+        
+        if(session['id'].toString().substr(1,2) < 4) { userClass = "정보통신과 " + session['id'];} else if(session['id'].toString().substr(1,2) < 7) { userClass = "웹운영과 " + session['id'];} else if(session['id'].toString().substr(1,2) < 10) { userClass = "테크노경영과 " + session['id'];} else { userClass = "멀티미디어과 " + session['id'];}
+    
+        if(session['id'].toString().length == 1) { userClass = "교사";}
+    
+        document.getElementById('userName').innerHTML = session['name'];
+        document.getElementById('userClass').innerHTML = userClass;
+    </script>
+</body>
+    
+</html>

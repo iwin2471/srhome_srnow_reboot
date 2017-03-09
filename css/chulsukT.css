@@ -1,0 +1,105 @@
+#content {
+    height: 100%;
+    width: calc(100% - 140px);
+    margin: auto;
+}
+
+#board {
+    width: 100%;
+}
+
+#boardTitle {
+    width: 100%;
+    height: 65px;
+    background: linear-gradient(to right, #5c36a8, #a0263b);
+}
+
+#boardTitle > * {
+    display: inline-block;
+    color: #fff;
+}
+
+.boardName {
+    font-size: 16px;
+    line-height: 65px;
+    margin: 0 0 0 20px;
+ 
+}
+
+/*
+#comment {
+    box-sizing: border-box;
+    float: right;
+    margin: 20px 30px;
+    padding: 0 18px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 6px;
+    border: 1px solid #fff;
+    border-radius: 30px;
+}
+*/
+
+form > p {
+    font-size: 20px;
+    color: #363636;
+    margin-top: 30px;
+}
+
+form > select {
+    height: 30px;
+    width: 600px;
+    border: 0px;
+/*    border: 1px solid #363636;*/
+    background: rgba(255,255,255,0);
+/*    margin-bottom: 30px;*/
+    font-size: 16px;
+}
+
+
+#students {
+    margin-top: 30px;
+    border-top: 3px solid #c13667;
+}
+
+
+.student {
+    height: 80px;
+    width: 100%;
+    font-size: 0px;
+    border-bottom: 1px solid #eeeeee;
+    color: #757575;
+} 
+
+.student > div {
+    display: inline-block;
+    font-size: 0px;
+    padding: 0 10px;
+}
+
+.student > .studentName {
+    box-sizing: border-box;
+    height: 100%;
+    width: 120px;
+    font-size: 20px;
+    text-align: center;
+    border-right: 1px solid #eeeeee;
+    line-height: 40px;
+    padding: 20px 10px;
+}
+
+.absent, .tardy, .early, .dotty {
+    margin-right: 20px;
+} 
+
+input[type='number'] {
+    width: 50px;
+}
+
+.absent > div, .tardy > div, .early > div, .dotty > div {
+    height: 100%;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 5px;
+}

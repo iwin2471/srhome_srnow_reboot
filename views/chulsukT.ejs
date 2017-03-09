@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+       console.log(session)
+    }
+	attend = "<%= attend %>".replace(/&#34;/g,'"');
+    if( attend.length > 0 ){
+       attend = JSON.parse(attend)
+    }
+    </script>
+    <meta charset="utf-8">
+    <title>출석</title>
+    <link href="../css/chulsukT.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+</head>
+<body>
+    <script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="view">
+            <div id="boardTitle">
+                <div class="boardName">수행평가 관리</div>
+                <div class="boardName">출결관리</div>
+<!--                <div id="comment">댓글</div>-->
+            </div>
+            <form>
+                <p>학년 반을 선택해주세요</p>
+                <select name="class" id="class" class="class">
+                      <option value="110">1학년 10반-멀티미디어과</option>
+                </select>
+                <select name="studentList" id="studentList" class="studentList">
+                      <option value="110">김태윤</option>
+                </select>
+                <div id="students">
+                    <div class="student">
+                        <div class="studentName"></div>
+                        <div class="absent">
+                            <div>
+                                <p>무단결석</p>
+                                <input type="number" name="0" value="0">
+                            </div>
+                            <div>
+                                <p>질병결석</p>
+                                <input type="number" name="1" value="0">
+                            </div>
+                            <div>
+                                <p>인정결석</p>
+                                <input type="number" name="2" value="0">
+                            </div>
+                        </div>
+                        <div class="tardy">
+                            <div>
+                                <p>무단지각</p>
+                                <input type="number" name="3" value="0">
+                            </div>
+                            <div>
+                                <p>질병지각</p>
+                                <input type="number" name="4" value="0">
+                            </div>
+                            <div>
+                                <p>인정지각</p>
+                                <input type="number" name="5" value="0">
+                            </div>
+                        </div>
+                        <div class="early">
+                            <div>
+                                <p>무단조퇴</p>
+                                <input type="number" name="6" value="0">
+                            </div>
+                            <div>
+                                <p>질병조퇴</p>
+                                <input type="number" name="7" value="0">
+                            </div>
+                            <div>
+                                <p>인정조퇴</p>
+                                <input type="number" name="8" value="0">
+                            </div>
+                        </div>
+                        <div class="dotty">
+                            <div>
+                                <p>무단조퇴</p>
+                                <input type="number" name="9" value="0">
+                            </div>
+                            <div>
+                                <p>질병조퇴</p>
+                                <input type="number" name="10" value="0">
+                            </div>
+                            <div>
+                                <p>인정조퇴</p>
+                                <input type="number" name="11" value="0">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementsByClassName('studentName')[0].innerHTML = attend['user_id'];
+        document.getElementById('studentList').innerHTML = "<option value='"+attend['user_id']+"'>"+attend['user_id']+"</option>"
+    </script>
+</body>
+
+</html>

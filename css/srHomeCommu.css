@@ -1,0 +1,68 @@
+
+#content {
+    height: 100%;
+    width: calc(100% - 140px);
+    margin: auto;
+}
+
+#board {
+    width: 100%;
+}
+
+#boardTitle {
+    width: 100%;
+    height: 65px;
+    background: linear-gradient(to right, #5c36a8, #a0263b);
+}
+
+#boardTitle > * {
+    display: inline-block;
+    color: #fff;
+}
+
+.boardName {
+    font-size: 16px;
+/*    font-style: bold;*/
+    line-height: 65px;
+    margin: 0 0 0 20px;
+ 
+}
+
+#posting {
+    box-sizing: border-box;
+    float: right;
+    margin: 20px 30px;
+    padding: 0 18px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 6px;
+    border: 1px solid #fff;
+    border-radius: 30px;
+}
+
+.post {
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    font-size: 0px;
+    color: #757575;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.post > div {
+    display: inline-block;
+}
+
+.postTitle {
+    width: calc(100% - 200px);
+    font-size: 16px;
+}
+
+.postDate {
+    width: 200px;
+    font-size: 14px;
+    color: #bdbdbd;
+    text-align: center;
+}
+
+

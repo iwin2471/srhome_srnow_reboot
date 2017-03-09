@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+    }
+    attend = "<%= attend %>".replace(/&#34;/g,'"');
+    if( attend.length > 0 ){
+       attend = JSON.parse(attend)
+    }
+    </script>
+    <meta charset="utf-8">
+    <title>출석</title>
+    <link href="../css/chulsuk.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+</head>
+<body>
+    <script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="view">
+            <div id="boardTitle">
+                <a class="boardName" href="/suhang">수행평가 관리</a>
+                <a class="boardName" href="/attend">출결관리</a>
+            </div>
+            <div id="chulsukNoti">구창림님의 이번달 출결상황입니다</div>
+            <div id="chulsukCard">
+                <div id="absent">
+                    <p>결석</p>
+                    <div class="chulsukNum">1<p>회</p></div>
+                    <div class="moreNum">
+                        <p>무단결석-0회</p>
+                        <p>질병결석-1회</p>
+                        <p>인정결석-0회</p>
+                    </div>
+                </div>
+                <div id="tardy">
+                    <p>지각</p>
+                    <div class="chulsukNum">0<p>회</p></div>
+                    <div class="moreNum">
+                        <p>무단지각-0회</p>
+                        <p>질병지각-0회</p>
+                        <p>인정지각-0회</p>
+                    </div>
+                </div>
+                <div id="Early">
+                    <p>조퇴</p>
+                    <div class="chulsukNum">2<p>회</p></div>
+                    <div class="moreNum">
+                        <p>무단조퇴-0회</p>
+                        <p>질병조퇴-0회</p>
+                        <p>인정조퇴-2회</p>
+                    </div>
+                </div>
+                <div id="Dotty">
+                    <p>결과</p>
+                    <div class="chulsukNum">0<p>회</p></div>
+                    <div class="moreNum">
+                        <p>무단결과-0회</p>
+                        <p>질병결과-0회</p>
+                        <p>인정결과-0회</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.getElementById('chulsukNoti').innerHTML = session['name'] + "님의 이번달 출결상황입니다";
+    </script>
+</body>
+
+</html>

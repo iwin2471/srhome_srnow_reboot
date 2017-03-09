@@ -1,0 +1,104 @@
+#content {
+    height: 100%;
+    width: calc(100% - 140px);
+    margin: auto;
+    
+    font-size: 0px;
+    
+}
+
+#board {
+    width: 100%;
+}
+
+#boardTitle {
+    width: 100%;
+    height: 65px;
+    background: linear-gradient(to right, #5c36a8, #a0263b);
+}
+
+#boardTitle > * {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+}
+
+.boardName {
+    font-size: 16px;
+    line-height: 65px;
+    margin: 0 0 0 20px;
+ 
+}
+
+/*
+#comment {
+    box-sizing: border-box;
+    float: right;
+    margin: 20px 30px;
+    padding: 0 18px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 6px;
+    border: 1px solid #fff;
+    border-radius: 30px;
+}
+*/
+
+.calendar_table td {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    margin: 15px;
+    text-align: center;
+    border: 1px solid #bdbdbd;
+    border-radius: 100px;
+    color: #757575;
+    font-size: 16px;
+}
+
+#calendar {
+    display: inline-block;
+    width: 500px;
+    height: 100%;
+    margin-top: 50px;
+}
+
+#calendar > div {
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
+    border-bottom: 1px solid #000;
+    padding: 10px 0;
+}
+
+#meal {
+    box-sizing: border-box;
+    display: inline-block;
+    width: calc(100% - 500px);
+    height: 100%;
+    margin-top: 100px;
+    color: #757575;
+    padding-left: 50px;
+}
+
+#meal > div {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    font-size: 16px;
+/*    padding: 0 20px;*/
+}
+
+#mealLunch > div, #mealDinner > div {
+    width: 100px;
+    padding: 20px 0;
+    font-size: 24px;
+    border-top: 5px solid #812d6d;
+}
+
+#mealLunch > p, #mealDinner > p {
+    margin: 10px 0;
+}

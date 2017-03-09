@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+    }
+    post = "<%= post %>".replace(/&#34;/g,'"');
+    post = JSON.parse(post)
+    
+    replys = "<%= replys %>".replace(/&#34;/g,'"');
+    replys = JSON.parse(replys)
+    
+//    console.log(post);
+    </script>
+    <meta charset="utf-8">
+    <title>커뮤니티</title>
+    <link href="../css/viewPost.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+</head>
+<body>
+<!--
+    <div id="srHomeTitle">
+        <div id="gbBar">
+            <div id="userInfo">
+                <div id="userImage"></div>
+                <div id="userName">구창림</div>
+                <div style="margin:0 5px;color:rgba(255,255,255,0.5)">|</div>
+                <div id="userClass">멀티미디어과 21111</div>
+            </div>
+            <div id="gbItem">
+                <div>srNow</div>
+                <div>설정</div>
+                <div id="log" onclick="location.href='/login'">로그아웃</div>
+            </div>
+        </div>
+        <div id="logo">
+            <p>커뮤니티</p>
+        </div>
+    </div>
+-->
+    <script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="view">
+            <div id="boardTitle">
+                <div class="boardName">자유게시판</div>
+                <div class="boardName">선린 맛집 공유</div>
+                <div class="boardName">건의사항</div>
+                <div class="boardName">선린지식인</div>
+                <a href="/srHomeCommu" id="more">목록</a>
+            </div>
+            <div id="postHeader">
+                <div id="postTitle"></div>
+                <div id="postWriter"></div>
+                <div id="postDate"></div>
+            </div>
+            <div id="postContent">
+            </div>
+            <img id="postImage">
+            <div id="postComment">
+<!--
+                <div class="comment">
+                    <div class="commentImage"></div>
+                    <div class="commentContent">
+                        <div class="commentWriter">구창림</div>
+                        <div class="commentText">초코우유 먹자 ㅎㅎㅎ</div>
+                    </div>
+                </div>
+-->
+<!--
+                <div id="addComment">
+                    <form method="post" action="/writereply">
+                        <div class="commentImage"></div>
+                        <input type="hidden" value="" name="post_id" id="post_id">
+                        <input type="text" placeholder="댓글을 입력해주세요..." name="text">
+                        <input type="submit" id="submitComment" value="작성">
+                    </form>
+                </div>
+-->
+            </div>
+        </div>
+    </div>
+    <script>
+        comments = "";
+        
+        for(var j=0; j<replys.length; j++) {
+            
+                comments += "<div class='comment'><div class='commentImage'></div><div class='commentContent'><div class='commentWriter'>" + replys[j]['user_name'] + "</div><div class='commentText'>" + replys[j]['text'] + "</div></div></div>";
+        }
+        
+        comments += "<div id='addComment'><form method='post' action='/writereply'><div class='commentImage'></div><input type='hidden' value='' name='post_id' id='post_id'><input type='text' placeholder='댓글을 입력해주세요...' name='text'><input type='submit' id='submitComment' value='작성'></form></div>";
+        
+        document.getElementById('postComment').innerHTML = comments;
+        
+        
+        if(!post['file']) {
+            document.getElementById('postImage').style.display="none";
+        }
+        
+        document.getElementById('post_id').value = post['id'];
+        
+        document.getElementById('postTitle').innerHTML = post['title'];
+        document.getElementById('postWriter').innerHTML = post['user_name'] + "이 작성함,";
+        document.getElementById('postDate').innerHTML = post['date'];
+        document.getElementById('postContent').innerHTML = post['text'];
+        document.getElementById('postImage').src = "/img/postimg/" + post['id'] + ".png";
+    </script>
+</body>
+
+</html>

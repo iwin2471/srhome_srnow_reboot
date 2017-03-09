@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0px;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        
+        form {
+            box-sizing: border-box;
+            width: 300px;
+/*            height: 300px;*/
+            border: 1px solid #eeeeee;
+            border-radius: 5px;
+            margin: auto;
+            margin-top: 100px;
+            padding: 30px;
+        }
+        
+        input {
+            display: block;
+            width: 100%;
+            height: 30px;
+            border: 0px;
+            border-bottom: 1px solid #eeeeee;
+            margin: 10px 0;
+        }
+        
+        input[type="submit"] {
+            background: linear-gradient(to right, #8643c2, #c03768);
+            color: #fff;
+            height: 40px;
+            border-radius: 5px;
+    </style>
+</head>
+<body>
+<form method="post" action="/register">
+    <input type="number" placeholder="학생이시면 학번을 입력해주세요" name="userid">
+    <input type="text" placeholder="이름" name="name">
+    <input type="text" placeholder="이메일" name="email">
+    <input type="password" placeholder="비밀번호" name="password">
+<!--    <input type="password" placeholder="비밀번호 확인" name="password_r">-->
+    <input type="submit" value="가입하기">
+</form>
+</body>
+</html>

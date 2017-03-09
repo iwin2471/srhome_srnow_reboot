@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+//       console.log(session)
+    }
+        
+    function getPost(flag) {
+        for(var i=0; i<document.getElementsByClassName('boardName').length; i++) {
+            document.getElementsByClassName('boardName')[i].style.fontWeight = "";
+        }
+        document.getElementsByClassName('boardName')[flag].style.fontWeight = "900";
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function (event){ 
+            if (xhr.readyState == 4 && xhr.status == 200){
+//                console.log(xhr.responseText);
+                posts = JSON.parse(xhr.responseText)
+                postList = document.getElementById('postList');
+                postList.innerHTML = "";
+                for(var i=0; i<posts.length; i++) {
+                    postList.innerHTML += "<a href='/post/" + posts[i]['id']  + "'><div class='post'><div class='postTitle'>"+ posts[i]['title'] + "</div><div class='postDate'>" + posts[i]['date'].split("T")[0] + " " + posts[i]['user_name'] + "님이 작성함" + "</div></div></a>"
+                }
+            }
+        }
+        xhr.open("GET", "/getposts/" + flag, false); 
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); xhr.send();
+    }
+        
+    </script>
+    <meta charset="utf-8">
+    <title>커뮤니티</title>
+    <link href="../css/srHomeCommu.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+</head>
+<body>
+<!--
+    <div id="srHomeTitle">
+        <div id="gbBar">
+            <div id="userInfo">
+                <div id="userImage"></div>
+                <div id="userName">구창림</div>
+                <div style="margin:0 5px;color:rgba(255,255,255,0.5)">|</div>
+                <div id="userClass">멀티미디어과 21111</div>
+            </div>
+            <div id="gbItem">
+                <div>srNow</div>
+                <div>설정</div>
+                <div id="log" onclick="location.href='/logout'">로그아웃</div>
+            </div>
+        </div>
+        <div id="logo">
+            <p>커뮤니티</p>
+        </div>
+    </div>
+-->
+    <script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="board">
+            <div id="boardTitle">
+                <div class="boardName" onclick="getPost(0)">자유게시판</div>
+                <div class="boardName" onclick="getPost(1)">선린 맛집 공유</div>
+                <div class="boardName" onclick="getPost(2)">건의사항</div>
+                <div class="boardName" onclick="getPost(3)">선린지식인</div>
+                <div id="posting" onclick="location.href='/writePost';">글쓰기</div>
+            </div>
+            <div id="postList">
+<!--
+                <div class="post">
+                    <div class="postTitle">SUNRIN Networking Day 2016 (부제 : SRN 2016, Start & We) 개최</div>
+                    <div class="postDate">2016-11-01 구창림이 작성</div>
+                </div>
+-->
+            </div>
+        </div>
+        
+    </div>
+    <script>
+    getPostNum = 0;
+    console.log(getPostNum);
+    if(location.href.split('/')[4] != undefined) {
+        getPostNum = location.href.split('/')[4];
+        console.log(getPostNum);
+    }
+    getPost(getPostNum);
+    console.log(getPostNum);
+    
+    </script>
+</body>
+
+</html>

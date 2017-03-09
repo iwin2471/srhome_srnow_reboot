@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<style>
+		* {
+			margin: 0px;
+		}
+		
+		html, body {
+			width: 100%;
+			height: 100%;
+		}
+		
+		form {
+			box-sizing: border-box;
+			width: 300px;
+/*			height: 300px;*/
+			border: 1px solid #eeeeee;
+			border-radius: 5px;
+			margin: auto;
+			margin-top: 100px;
+			padding: 30px;
+		}
+		
+		input {
+			display: block;
+			width: 100%;
+			height: 30px;
+			border: 0px;
+			border-bottom: 1px solid #eeeeee;
+			margin: 10px 0;
+			
+		}
+		
+/*		input[type="submit"] {*/
+		form > div {
+			background: linear-gradient(to right, #8643c2, #c03768);
+			color: #fff;
+			height: 40px;
+			border-radius: 5px;
+			line-height: 40px;
+			text-align: center;
+		}
+		
+		a {
+			width: 100%;
+			text-align: center;
+			color: #757575;
+			text-decoration: none;
+			display: block;
+			margin: 10px 0;
+		}
+	</style>
+</head>
+<body>
+<!--<form method="post" action="/api/login/local">-->
+<form>
+	<input type="text" placeholder="ID" name="email" onkeydown="enterLogin(event)">
+	<input type="password" placeholder="PW" name="password" onkeydown="enterLogin(event)">
+<!--	<input type="submit" value="로그인">-->
+	<div onclick="login()">로그인</div>
+	<a href="/join">회원가입</a>
+</form>
+	<script>
+	function enterLogin(e){
+	   	if( e.keyCode == 13 ){
+			login();
+   		}
+	}
+	function login() {
+		
+		email = document.getElementsByName('email')[0].value;
+		password = document.getElementsByName('password')[0].value;
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(event){
+			if( xhr.readyState == 4 && xhr.status == 200 ){
+				if( xhr.responseText == "success" ){
+//					location.href = "/" + document.URL.split('/').slice(4).toString().split('-').join('/');
+//						location.href = "/" + document.referrer.split('http://iori.kr')[1];
+//						location.href = document.referrer;
+					location.href = "/" + document.URL.split('/').slice(4).toString().split('-').join('/');
+					
+				} else {
+					alert(xhr.responseText);
+//					alert(xhr.responseText);
+				}
+			}
+		}
+		xhr.open("POST", "/api/login/local", false);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.send('email='+email+'&password='+password);
+	} 
+	</script>
+</body>
+</html>

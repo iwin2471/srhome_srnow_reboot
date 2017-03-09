@@ -1,0 +1,87 @@
+* {
+    margin: 0px;
+    vertical-align: middle;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    min-width: 940px;
+    overflow-x: scroll;
+}
+
+#content {
+    width: calc(100% - 140px);
+    max-width: 1100px;
+    margin: auto;
+}
+
+#srTitle {
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(to right, #6560ff, #ce312d);
+}
+
+#tab {
+    width: calc(100% - 140px);
+    max-width: 1100px;
+    height: 70px;
+    margin: auto;
+    text-align: right;
+}
+
+#tab > a {
+    display: inline-block;
+    height: 70px;
+    line-height: 70px;
+    padding: 0 5px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+
+#userInfo {
+    float: left;
+    height: 70px;
+}
+
+#userInfo > div {
+    display: inline-block;
+    line-height: 70px;
+    font-size: 12px;
+}
+
+#userName {
+    color: #fff;
+}
+
+#userClass {
+    color: rgba(255,255,255,0.5);
+}
+
+#header {
+    width: calc(100% - 140px);
+    max-width: 1100px;
+    height: 170px;
+    margin: auto;
+}
+
+#logo {
+    display: block;
+    position: relative;
+    top: 95px;
+    width: 140px;
+    height: 75px;
+    background: url('http://iori.kr/img/title_srhome.png') no-repeat;
+    background-size: 140px;
+}
+
+#logo > p {
+    color: rgba(255,255,255,0.5);
+    position: absolute;
+    line-height: 40px;
+    bottom: 0px;
+}

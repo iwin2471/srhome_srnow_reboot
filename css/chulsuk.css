@@ -1,0 +1,80 @@
+#content {
+    height: 100%;
+    width: calc(100% - 140px);
+    margin: auto;
+}
+
+#board {
+    width: 100%;
+}
+
+#boardTitle {
+    width: 100%;
+    height: 65px;
+    background: linear-gradient(to right, #5c36a8, #a0263b);
+}
+
+#boardTitle > * {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+}
+
+.boardName {
+    font-size: 16px;
+    line-height: 65px;
+    margin: 0 0 0 20px;
+ 
+}
+
+#chulsukNoti {
+    font-size: 28px;
+    margin: 10px;
+    line-height: 70px
+}
+
+#chulsukCard {
+    width: 100%;
+    font-size: 0px;
+}
+
+#chulsukCard > div {
+    box-sizing: border-box;
+    display: inline-block;
+    width: calc((100% - 40px) / 4);
+    height: 350px;
+    margin: 5px;
+    border: 1px solid #bdbdbd;
+}
+
+#absent > p, #tardy > p, #Early > p, #Dotty > p {
+    display: inline-block;
+    font-size: 36px;
+    margin: 30px 10px;
+    border-top: 3px solid #c33767;
+    padding-top: 10px;
+    font-weight: 300;
+} 
+
+.chulsukNum {
+    display: block;
+    font-size: 80px;
+    padding: 30px 30px 0 0;
+}
+
+.chulsukNum > p {
+    display: inline-block;
+    font-size: 40px;
+    vertical-align: baseline;
+}
+
+.chulsukNum, .moreNum {
+    text-align: right;
+}
+
+.moreNum {
+    font-size: 16px;
+    line-height: 30px;
+    padding: 0px 30px 0 0px;
+    color: #bdbdbd;
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+    session = "<%= session %>".replace(/&#34;/g,'"');
+    if( session.length > 0 ){
+       session = JSON.parse(session)
+       console.log(session)
+    }
+    </script>
+    <meta charset="utf-8">
+    <title>커뮤니티</title>
+    <link href="../css/writePost.css" rel="stylesheet">
+    <link href="../css/srTitle.css" rel="stylesheet">
+</head>
+<body>
+    <script src="../js/srTitle.js"></script>
+    <div id="content">
+        <div id="view">
+            <div id="boardTitle">
+                <a href="/srHomeCommu/0"><div class="boardName">자유게시판</div></a>
+                <a href="/srHomeCommu/1"><div class="boardName">선린 맛집 공유</div></a>
+                <a href="/srHomeCommu/2"><div class="boardName">건의사항</div></a>
+                <a href="/srHomeCommu/3"><div class="boardName">선린지식인</div></a>
+<!--                <div id="comment">댓글</div>-->
+            </div>
+            <form method="post" action="/writepost"  enctype="multipart/form-data" >
+                <select name="type" id="type">
+                  <option value="0">자유게시판</option>
+                  <option value="1">선린 맛집 공유</option>
+                  <option value="2">건의사항</option>
+                  <option value="3">선린지식인</option>
+                </select>
+                <input type="text" name="title" placeholder="제목을 입력하세요">
+                <textarea style="resize: none;" id="text" name="text" placeholder="내용을 입력하세요"></textarea>
+                <input type="file" name="file" >
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
